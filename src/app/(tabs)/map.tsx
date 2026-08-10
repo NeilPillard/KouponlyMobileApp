@@ -1,0 +1,30 @@
+import * as Location from 'expo-location';
+import { Image } from 'expo-image';
+import { router } from 'expo-router';
+import { LocateFixed, MapPin, Search, X } from 'lucide-react-native';
+import { useMemo, useRef, useState } from 'react';
+import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import MapView, { Marker, type Region } from 'react-native-maps';
+
+import { Chip, PartnerCard, commonStyles } from '@/components/kouponly-ui';
+import { partners } from '@/data/fixtures';
+import { colors, radius, shadow } from '@/theme';
+
+const initialRegion: Region = { latitude: 9.985, longitude: 76.299, latitudeDelta: 0.12, longitudeDelta: 0.12 };
+const groups = ['All', 'Food', 'Coffee', 'Beauty', 'Fun', 'Shop', 'Stays', 'Travel'];
+
+export default function MapScreen() {
+  const mapRef = useRef<MapView>(null);
+  const [query,setQuery] = useState(''); const [group,setGroup] = useState('All'); const [selected,setSelected] = useState(partners[0].id); const [fallback,setFallback] = useState(false); const [message,setMessage] = useState('Kochi · live area');
+  const visible = useMemo(() => partners.filter((partner) => (group==='All' || (group==='Food' && ['Mains','Snacks'].includes(partner.category)) || (group==='Coffee' && partner.category==='Drinks') || (group==='Beauty' && partner.category==='Beauty') || (group==='Fun' && ['Entertainment','Things to do'].includes(partner.category)) || (group==='Shop' && partner.category==='Shopping') || (group==='Stays' && partner.category==='Staycations') || (group==='Travel' && partner.category==='Travel')) && (!query || `${partner.name} ${partner.place} ${partner.category}`.toLowerCase().includes(query.toLowerCase()))),[group,query]);
+  const focused = visible.find((item)=>item.id===selected) ?? visible[0];
+  const locate = async () => { const permission=await Location.requestForegroundPermissionsAsync(); if(permission.status!=='granted'){setMessage('Location denied · showing Kochi fixtures');return;} const current=await Location.getCurrentPositionAsync({accuracy:Location.Accuracy.Balanced}); mapRef.current?.animateToRegion({latitude:current.coords.latitude,longitude:current.coords.longitude,latitudeDelta:.08,longitudeDelta:.08},500); setMessage('Centred on your current area'); };
+  return <View style={styles.container}><View style={styles.toolbar}><View style={styles.search}><Search size={18} color={colors.muted}/><TextInput value={query} onChangeText={(value)=>{setQuery(value);if(value)setGroup('All');}} placeholder="Find a partner in Kochi" placeholderTextColor="#888" style={styles.input}/>{query?<Pressable onPress={()=>setQuery('')}><X size={17} color={colors.muted}/></Pressable>:null}</View><ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.chips}>{groups.map((item)=><Chip key={item} label={item} active={group===item} onPress={()=>{setGroup(item);setQuery('');}}/>)}</ScrollView></View>
+    <View style={styles.mapWrap}>{fallback?<><Image source={{uri:'https://raw.githubusercontent.com/NeilPillard/Kouponlyapp/main/public/kochi-map-bg.png'}} style={StyleSheet.absoluteFill} contentFit="cover"/><View style={styles.fallbackBadge}><Text style={styles.fallbackText}>ILLUSTRATED MAP FALLBACK</Text></View></>:<MapView ref={mapRef} style={StyleSheet.absoluteFill} initialRegion={initialRegion} onMapReady={()=>setMessage('Kochi · live area')} onMapLoaded={()=>setFallback(false)}>{visible.map((partner)=><Marker key={partner.id} coordinate={{latitude:partner.branch.latitude,longitude:partner.branch.longitude}} title={partner.name} description={partner.place} pinColor={selected===partner.id?colors.lime:colors.ink} onPress={()=>setSelected(partner.id)}/>)}</MapView>}
+      <View style={styles.area}><MapPin size={13} color={colors.white}/><Text style={styles.areaText}>{message.toUpperCase()}</Text></View><Pressable onPress={locate} onLongPress={()=>setFallback((value)=>!value)} style={styles.locate}><LocateFixed size={21} color={colors.lime}/></Pressable>
+    </View>
+    <View style={styles.results}><View style={styles.resultTitle}><View><Text style={styles.count}>{visible.length} PARTNERS NEARBY</Text><Text style={commonStyles.h3}>{group==='All'?'Best around you':group}</Text></View><Pressable onPress={()=>router.push('/(tabs)/search')}><Text style={styles.directory}>Directory</Text></Pressable></View>{focused?<PartnerCard partner={focused} compact/>:<View style={styles.empty}><MapPin size={24} color={colors.ink}/><Text style={commonStyles.h3}>No matching partners</Text><Text style={commonStyles.muted}>Try another category or search.</Text></View>}</View>
+  </View>;
+}
+
+const styles=StyleSheet.create({container:{flex:1,paddingTop:48,backgroundColor:colors.paper},toolbar:{paddingHorizontal:16},search:{height:50,paddingHorizontal:14,flexDirection:'row',alignItems:'center',gap:8,borderRadius:radius.lg,backgroundColor:colors.white,borderWidth:1,borderColor:colors.line,...shadow.card},input:{flex:1,height:'100%',fontSize:12},chips:{gap:7,paddingVertical:10,paddingRight:20},mapWrap:{flex:1,minHeight:340,overflow:'hidden',backgroundColor:colors.cream},fallbackBadge:{position:'absolute',top:16,left:16,paddingHorizontal:9,paddingVertical:6,borderRadius:9,backgroundColor:colors.ink},fallbackText:{color:colors.lime,fontSize:8,fontWeight:'900'},area:{position:'absolute',top:14,left:14,flexDirection:'row',alignItems:'center',gap:5,paddingHorizontal:10,height:30,borderRadius:999,backgroundColor:'rgba(10,10,10,.83)'},areaText:{color:colors.white,fontSize:8,fontWeight:'900',letterSpacing:.7},locate:{position:'absolute',right:15,bottom:15,width:48,height:48,borderRadius:16,alignItems:'center',justifyContent:'center',backgroundColor:colors.ink,...shadow.card},results:{padding:16,paddingBottom:96,backgroundColor:colors.paper},resultTitle:{flexDirection:'row',alignItems:'flex-end',justifyContent:'space-between',marginBottom:11},count:{marginBottom:4,color:colors.muted,fontSize:8,fontWeight:'900',letterSpacing:1},directory:{fontSize:10,fontWeight:'900',textDecorationLine:'underline'},empty:{alignItems:'center',gap:8,padding:25}});
