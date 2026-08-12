@@ -44,7 +44,7 @@ export function RemoteImage({ uri, style, contentFit = 'cover', accessibilityLab
 export function PartnerCard({ partner, compact = false }: { partner: Partner; compact?: boolean }) {
   const saved = useAppStore((state) => state.savedPartnerIds.includes(partner.id));
   const toggleSaved = useAppStore((state) => state.toggleSaved);
-  return <Pressable onPress={() => router.push(`/partner/${partner.id}`)} style={({ pressed }) => [compact ? styles.compactCard : styles.partnerCard, pressed && styles.pressed]}>
+  return <Pressable testID={`partner-card-${partner.id}`} accessibilityLabel={`Open ${partner.name}`} onPress={() => router.push(`/partner/${partner.id}`)} style={({ pressed }) => [compact ? styles.compactCard : styles.partnerCard, pressed && styles.pressed]}>
     <RemoteImage uri={partner.image} style={compact ? styles.compactImage : styles.partnerImage} />
     <View style={styles.partnerCopy}>
       <Text numberOfLines={1} style={styles.partnerName}>{partner.name}</Text>

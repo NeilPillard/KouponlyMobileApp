@@ -3,7 +3,7 @@ import type { DirectoryItem, SortMode } from '@/types';
 export function filterAndSortDirectory(items: DirectoryItem[], query: string, filter: string, sort: SortMode) {
   const normalized = query.trim().toLowerCase();
   const matchesFilter = (type: DirectoryItem['type']) => filter === 'All' ||
-    (filter === 'Partners' && type === 'Vendor') ||
+    (filter === 'Partners' && type === 'Partner') ||
     (filter === 'Offers' && type === 'Offer') ||
     (filter === 'Go out' && type === 'Experience') ||
     (filter === 'Grow' && ['Course', 'Internship', 'Freelance', 'Job'].includes(type)) ||

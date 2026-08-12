@@ -54,3 +54,18 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+# Development client
+
+This app runs in a local Expo development client rather than Expo Go. Install
+native dependencies once, build the client, then start Metro in dev-client mode:
+
+```bash
+pnpm install
+pnpm android:dev-client
+pnpm start:dev-client
+```
+
+`android:dev-client` runs `expo run:android`, which generates the native
+Android project when needed and installs the Kouponly development client on a
+connected device or emulator. Use `pnpm start:dev-client` for subsequent
+sessions. The app's native configuration includes the `expo-dev-client` plugin.

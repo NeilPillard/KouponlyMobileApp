@@ -1,5 +1,5 @@
 export type SortMode = 'Trending' | 'A-Z' | 'Highest offer' | 'Newest' | 'Nearest';
-export type DirectoryType = 'Vendor' | 'Offer' | 'Experience' | 'Course' | 'Internship' | 'Freelance' | 'Job' | 'Reward';
+export type DirectoryType = 'Partner' | 'Offer' | 'Experience' | 'Course' | 'Internship' | 'Freelance' | 'Job' | 'Reward';
 export type RedemptionMode = 'online' | 'inStore';
 export type CampaignStatus = 'available' | 'applied' | 'selected' | 'in-progress' | 'submitted' | 'approved' | 'paid';
 export type HomeMode = 'save' | 'play' | 'grow';

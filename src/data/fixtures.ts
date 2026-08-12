@@ -33,6 +33,16 @@ export const offers: Offer[] = [
   { id:'marriott-main', partnerId:'marriott', title:'Pool access and lunch for two', saving:'Save ₹1,500', value:40, mode:'online', renewalDate:'1 September', externalUrl:'https://www.marriott.com/' },
   { id:'pvr-main', partnerId:'pvr', title:'Two premium seats from ₹499', saving:'Save ₹350', value:35, mode:'online', renewalDate:'1 September', externalUrl:'https://www.pvrcinemas.com/' },
   { id:'wonderla-main', partnerId:'wonderla', title:'Student day pass at member price', saving:'Save ₹600', value:30, mode:'online', renewalDate:'1 September', externalUrl:'https://www.wonderla.com/' },
+  { id:'burger-main', partnerId:'burger-king', title:'Buy one Whopper, get one free', saving:'Save ₹289', value:50, mode:'inStore', renewalDate:'1 September' },
+  { id:'kashi-main', partnerId:'kashi', title:'Brunch for two at a member price', saving:'Save up to ₹650', value:35, mode:'inStore', renewalDate:'1 September' },
+  { id:'naturals-main', partnerId:'naturals', title:'Hair spa and styling, 40% off', saving:'Save ₹900', value:40, mode:'inStore', renewalDate:'1 September' },
+  { id:'nykaa-main', partnerId:'nykaa', title:'20% off selected beauty favourites', saving:'Save up to ₹800', value:20, mode:'online', renewalDate:'1 September', externalUrl:'https://www.nykaa.com/' },
+  { id:'decathlon-main', partnerId:'decathlon', title:'Member price on selected sports gear', saving:'Save up to ₹1,100', value:25, mode:'online', renewalDate:'1 September', externalUrl:'https://www.decathlon.in/' },
+  { id:'westside-main', partnerId:'westside', title:'Extra 15% off your member basket', saving:'Save up to ₹1,250', value:15, mode:'inStore', renewalDate:'1 September' },
+  { id:'indigo-main', partnerId:'indigo', title:'Member fares on selected weekend routes', saving:'Save up to ₹2,500', value:18, mode:'online', renewalDate:'1 September', externalUrl:'https://www.goindigo.in/' },
+  { id:'croma-main', partnerId:'croma', title:'10% off selected accessories', saving:'Save up to ₹1,500', value:10, mode:'inStore', renewalDate:'1 September' },
+  { id:'chicking-main', partnerId:'chicking', title:'Family chicken bucket at ₹699', saving:'Save ₹420', value:38, mode:'inStore', renewalDate:'1 September' },
+  { id:'cinepolis-main', partnerId:'cinepolis', title:'Buy one cinema ticket, get one free', saving:'Save ₹300', value:50, mode:'online', renewalDate:'1 September', externalUrl:'https://www.cinepolisindia.com/' },
 ];
 
 export const partners: Partner[] = [
@@ -42,6 +52,16 @@ export const partners: Partner[] = [
   ['marriott','Kochi Marriott','Edappally','Staycations',4.9,img('photo-1566073771259-6a8506099945'),'A polished city escape with pool time and a relaxed lunch.',10.0270,76.3080,4.8,['marriott-main'],92,22],
   ['pvr','PVR Cinemas','Lulu Mall, Edappally','Entertainment',4.5,img('photo-1489599849927-2ee91cede3ba'),'Big-screen plans with premium seats at a smaller member price.',10.0268,76.3086,4.5,['pvr-main'],91,20],
   ['wonderla','Wonderla Kochi','Pallikkara','Things to do',4.7,img('photo-1576610616656-d3aa5d1f4534'),'A full day of rides, water attractions and group-friendly fun.',10.0251,76.3905,15.2,['wonderla-main'],89,18],
+  ['burger-king','Burger King','Lulu Mall, Edappally','Mains',4.6,img('photo-1568901346375-23c9450c58cd'),'Flame-grilled burgers and member offers for easy group plans.',10.0263,76.3085,3.2,['burger-main'],93,26],
+  ['kashi','Kashi Art Cafe','Fort Kochi','Breakfast',4.9,img('photo-1554118811-1e0d58224f24'),'An art-filled Fort Kochi cafe for brunch and slow afternoons.',9.9667,76.2432,8.4,['kashi-main'],90,19],
+  ['naturals','Naturals Salon','Kadavanthra','Beauty',4.8,img('photo-1560066984-138dadb4c035'),'Salon and self-care services at a student-friendly member price.',9.9674,76.2990,1.9,['naturals-main'],87,17],
+  ['nykaa','Nykaa Luxe','Lulu Mall, Edappally','Beauty',4.7,img('photo-1596462502278-27bfdc403348'),'Beauty favourites and curated drops from brands you know.',10.0264,76.3084,3.2,['nykaa-main'],88,30],
+  ['decathlon','Decathlon','Vyttila','Fitness',4.7,img('photo-1517836357463-d25dfeac3438'),'Sports gear and beginner picks for moving more around Kerala.',9.9680,76.3182,4.5,['decathlon-main'],86,23],
+  ['westside','Westside','Forum Mall, Maradu','Shopping',4.6,img('photo-1441986300917-64674bd600d8'),'Fashion and useful finds with an extra member saving.',9.9395,76.3291,5.2,['westside-main'],83,16],
+  ['indigo','IndiGo','Kochi Airport','Travel',4.7,img('photo-1436491865332-4c85980aad7e'),'Short-break fares and flight extras from Kochi.',10.1520,76.4019,24,['indigo-main'],85,29],
+  ['croma','Croma','Oberon Mall, Edappally','Shopping',4.5,img('photo-1498049794561-7780e7231661'),'Tech accessories and useful student gear.',10.0144,76.3122,4,['croma-main'],80,14],
+  ['chicking','Chicking','Palarivattom','Snacks',4.6,img('photo-1562967914-608f82629710'),'Kerala-born fried chicken and easy family buckets.',10.0034,76.3074,1,['chicking-main'],82,21],
+  ['cinepolis','Cinepolis','Centre Square, MG Road','Entertainment',4.6,img('photo-1489599849927-2ee91cede3ba'),'Cinema plans and weekday ticket offers in central Kochi.',9.9817,76.2825,.8,['cinepolis-main'],84,20],
 ].map(([id,name,place,category,rating,image,description,latitude,longitude,distanceKm,offerIds,trend,newest]) => ({ id,name,place,category,rating,image,description,branch:{id:`${id}-kochi`,name:place,latitude,longitude,distanceKm},offerIds,trend,newest } as Partner));
 
 export const heroSlides: HeroSlide[] = [
@@ -58,7 +78,7 @@ export const heroSlides: HeroSlide[] = [
 ].map(([id,brand,kicker,title,copy,cta,image,partnerId,search]) => ({ id,brand,kicker,title,copy,cta,image,partnerId,search } as HeroSlide));
 
 export const directoryItems: DirectoryItem[] = [
-  ...partners.map((p) => ({ id:`partner-${p.id}`,type:'Vendor' as const,title:p.name,subtitle:`${p.place} · ${p.branch.distanceKm} km`,tag:`Up to ${offers.find(o=>o.partnerId===p.id)?.value ?? 25}% off`,image:p.image,description:p.description,action:'View partner',offerValue:offers.find(o=>o.partnerId===p.id)?.value ?? 25,newest:p.newest,trend:p.trend,distanceKm:p.branch.distanceKm,keywords:`${p.name} ${p.place} ${p.category} ${p.description}`.toLowerCase(),partnerId:p.id})),
+  ...partners.map((p) => ({ id:`partner-${p.id}`,type:'Partner' as const,title:p.name,subtitle:`${p.place} · ${p.branch.distanceKm} km`,tag:`Up to ${offers.find(o=>o.partnerId===p.id)?.value ?? 25}% off`,image:p.image,description:p.description,action:'View partner',offerValue:offers.find(o=>o.partnerId===p.id)?.value ?? 25,newest:p.newest,trend:p.trend,distanceKm:p.branch.distanceKm,keywords:`${p.name} ${p.place} ${p.category} ${p.description}`.toLowerCase(),partnerId:p.id})),
   { id:'pottery',type:'Experience',title:'Mattancherry pottery workshop',subtitle:'Fort Kochi · 7.2 km',tag:'₹650 member price',image:img('photo-1610701596007-11502861dcfa'),description:'A beginner-friendly clay session in a sunny heritage studio.',action:'View experience',offerValue:25,newest:21,trend:88,distanceKm:7.2,keywords:'experience pottery workshop fort kochi things to do' },
   { id:'design-course',type:'Course',title:'Portfolio design sprint',subtitle:'Online · 2 weeks',tag:'Free for members',image:img('photo-1522202176988-66273c2fd55f'),description:'Build a sharper portfolio with practical feedback and templates.',action:'View course',offerValue:100,newest:27,trend:84,distanceKm:0,keywords:'course learn design portfolio online free' },
   { id:'bd-intern',type:'Internship',title:'BD & Sales internship',subtitle:'Kouponly · Kochi hybrid',tag:'₹12,000/month',image:img('photo-1521737711867-e3b97375f902'),description:'Help Kerala partners launch offers and learn hands-on business development.',action:'Explore role',offerValue:0,newest:29,trend:98,distanceKm:1.5,keywords:'internship bd sales kouponly grow work',destination:'grow' },

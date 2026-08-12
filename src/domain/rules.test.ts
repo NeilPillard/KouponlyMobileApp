@@ -9,7 +9,7 @@ describe('directory rules', () => {
   });
 
   it('supports website-aligned grouped filters', () => {
-    expect(filterAndSortDirectory(directoryItems, '', 'Partners', 'Trending').every((item) => item.type === 'Vendor')).toBe(true);
+    expect(filterAndSortDirectory(directoryItems, '', 'Partners', 'Trending').every((item) => item.type === 'Partner')).toBe(true);
     expect(filterAndSortDirectory(directoryItems, '', 'Grow', 'Trending').every((item) => ['Course', 'Internship', 'Freelance', 'Job'].includes(item.type))).toBe(true);
     expect(filterAndSortDirectory(directoryItems, '', 'Rewards', 'Trending').every((item) => item.type === 'Reward')).toBe(true);
   });
